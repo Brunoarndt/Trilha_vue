@@ -2,8 +2,10 @@
   --color-bg: #080b11;
   --color-surface: #151b27;
   --color-border: rgba(255, 255, 255, 0.1);
+
   --color-text: #f5f7fb;
   --color-text-muted: #a7b0bf;
+
   --color-primary: #e8ff47;
   --color-primary-ink: #111500;
 
@@ -15,4 +17,6 @@
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-pill: 999px;
+
+  --container: 1200px;
 }
