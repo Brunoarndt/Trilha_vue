@@ -15,7 +15,9 @@ defineProps({
     <BaseBadge :tone="movie.status === 'showing' ? 'primary' : 'neutral'">
       {{ movie.status === 'showing' ? 'Em cartaz' : 'Em breve' }}
     </BaseBadge>
-    <h3>{{ movie.title }}</h3>
+    <RouterLink :to="{ name: 'movie-details', params: { id: movie.id } }">
+      {{ movie.title }}
+    </RouterLink>
     <p>{{ movie.genre }} · {{ movie.year }}</p>
   </article>
 </template>

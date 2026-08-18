@@ -6,6 +6,9 @@ import MovieFilters from '@/components/movie/MovieFilters.vue'
 import MovieGrid from '@/components/movie/MovieGrid.vue'
 
 import { initialMovies } from '@/data/movies'
+import { useMoviesStore } from '@/stores/movies'
+
+const moviesStore = useMoviesStore()
 
 const search = ref('')
 const activeFilter = ref('all')
@@ -15,15 +18,16 @@ const featuredMovies = computed(() => {
 })
 
 const filteredMovies = computed(() => {
-  const query = search.value.trim().toLowerCase()
+  const normalizedSearch = search.value.trim().toLocaleLowerCase('pt-BR')
 
-  return initialMovies.filter((movie) => {
+  return moviesStore.movies.filter((movie) => {
+    const matchesStatus = activeFilter.value === 'all' || movie.status === activeFilter.value
     const matchesSearch =
-      movie.title.toLowerCase().includes(query) || movie.genre.toLowerCase().includes(query)
+      !normalizedSearch ||
+      movie.title.toLocaleLowerCase('pt-BR').includes(normalizedSearch) ||
+      movie.genre.toLocaleLowerCase('pt-BR').includes(normalizedSearch)
 
-    const matchesFilter = activeFilter.value === 'all' || movie.status === activeFilter.value
-
-    return matchesSearch && matchesFilter
+    return matchesStatus && matchesSearch
   })
 })
 </script>
