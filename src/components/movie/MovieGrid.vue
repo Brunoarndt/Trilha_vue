@@ -31,7 +31,6 @@ defineProps({
 
 .movie-grid-section h2 {
   margin-bottom: var(--space-6);
-  color: black;
   font-size: 1.5rem;
 }
 

@@ -5,5 +5,6 @@ import router from './router'
 import { pinia } from './stores'
 
 import './assets/styles/tokens.css'
+import './assets/styles/main.css'
 
 createApp(App).use(pinia).use(router).mount('#app')

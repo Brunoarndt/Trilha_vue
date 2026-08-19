@@ -64,7 +64,6 @@ const emit = defineEmits(['update:search', 'update:activeFilter'])
 }
 
 .movie-filters__search label {
-  color: black;
   font-weight: 600;
 }
 

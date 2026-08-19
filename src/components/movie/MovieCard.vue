@@ -21,3 +21,11 @@ defineProps({
     <p>{{ movie.genre }} · {{ movie.year }}</p>
   </article>
 </template>
+
+<style scoped>
+article.movie-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+</style>
