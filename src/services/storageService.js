@@ -9,6 +9,14 @@ export function readStorage(key, fallbackValue) {
   }
 }
 
+export function removeStorage(key) {
+  try {
+    localStorage.removeItem(`${STORAGE_PREFIX}${key}`)
+  } catch {
+    // O app continua funcionando sem persistência.
+  }
+}
+
 export function writeStorage(key, value) {
   try {
     localStorage.setItem(`${STORAGE_PREFIX}${key}`, JSON.stringify(value))

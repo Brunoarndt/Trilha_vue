@@ -1,15 +1,17 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
+
 import { initialMovies } from '@/data/movies'
+import { readStorage, writeStorage } from '@/services/storageService'
 
 export const useMoviesStore = defineStore('movies', () => {
-  const movies = ref(structuredClone(initialMovies))
+  const movies = ref(readStorage('movies', structuredClone(initialMovies)))
+
+  function persist() {
+    writeStorage('movies', movies.value)
+  }
 
   const nowShowing = computed(() => movies.value.filter((movie) => movie.status === 'showing'))
-
-  function getMovieById(id) {
-    return movies.value.find((movie) => movie.id === Number(id)) ?? null
-  }
 
   const featuredMovie = computed(
     () => movies.value.find((movie) => movie.featured) ?? movies.value[0] ?? null,
@@ -31,6 +33,57 @@ export const useMoviesStore = defineStore('movies', () => {
 
   const totalMovies = computed(() => movies.value.length)
 
+  function getMovieById(id) {
+    return movies.value.find((movie) => movie.id === Number(id)) ?? null
+  }
+
+  function addMovie(movieData) {
+    const nextId = Math.max(0, ...movies.value.map((movie) => movie.id)) + 1
+
+    const movie = {
+      ...movieData,
+      id: nextId,
+    }
+
+    movies.value.push(movie)
+
+    persist()
+
+    return movie
+  }
+
+  function updateMovie(id, movieData) {
+    const index = movies.value.findIndex((movie) => movie.id === Number(id))
+
+    if (index === -1) {
+      return null
+    }
+
+    movies.value[index] = {
+      ...movies.value[index],
+      ...movieData,
+      id: Number(id),
+    }
+
+    persist()
+
+    return movies.value[index]
+  }
+
+  function removeMovie(id) {
+    const index = movies.value.findIndex((movie) => movie.id === Number(id))
+
+    if (index === -1) {
+      return false
+    }
+
+    movies.value.splice(index, 1)
+
+    persist()
+
+    return true
+  }
+
   return {
     movies,
     featuredMovie,
@@ -39,5 +92,8 @@ export const useMoviesStore = defineStore('movies', () => {
     carouselMovies,
     totalMovies,
     getMovieById,
+    addMovie,
+    updateMovie,
+    removeMovie,
   }
 })

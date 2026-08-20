@@ -19,6 +19,32 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: '/admin',
+      component: () => import('@/components/layout/AdminLayout.vue'),
+      children: [
+        {
+          path: '',
+          name: 'admin-dashboard',
+          component: () => import('@/views/admin/AdminDashboardView.vue'),
+        },
+        {
+          path: 'filmes',
+          name: 'admin-movies',
+          component: () => import('@/views/admin/AdminMoviesView.vue'),
+        },
+        {
+          path: 'filmes/novo',
+          name: 'admin-movie-create',
+          component: () => import('@/views/admin/AdminMovieFormView.vue'),
+        },
+        {
+          path: 'filmes/:id/editar',
+          name: 'admin-movie-edit',
+          component: () => import('@/views/admin/AdminMovieFormView.vue'),
+        },
+      ],
+    },
   ],
 })
 

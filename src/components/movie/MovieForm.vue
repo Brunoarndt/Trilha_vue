@@ -6,16 +6,27 @@ const props = defineProps({
     type: Object,
     default: null,
   },
+  submitLabel: {
+    type: String,
+    default: 'Salvar',
+  },
 })
 
 const emit = defineEmits(['submit', 'cancel'])
 
 const emptyForm = {
   title: '',
+  tagline: '',
+  synopsis: '',
   genre: '',
   year: new Date().getFullYear(),
-  rating: 0,
-  status: 'coming-soon',
+  duration: 100,
+  rating: 8,
+  ageRating: 'Livre',
+  status: 'showing',
+  featured: false,
+  poster: '',
+  backdrop: '',
 }
 
 const form = reactive({ ...emptyForm })
@@ -26,22 +37,29 @@ watch(
   (movie) => {
     Object.assign(form, emptyForm, movie ?? {})
   },
-  {
-    immediate: true,
-  },
+  { immediate: true },
 )
 
-function handleSubmit() {
-  errors.title = form.title.trim() ? '' : 'Informe o título.'
+function validate() {
+  Object.keys(errors).forEach((key) => delete errors[key])
 
-  if (errors.title) {
-    return
+  if (!form.title.trim()) errors.title = 'Informe o título.'
+  if (!form.genre.trim()) errors.genre = 'Informe o gênero.'
+  if (!form.synopsis.trim()) errors.synopsis = 'Informe a sinopse.'
+  if (Number(form.rating) < 0 || Number(form.rating) > 10) {
+    errors.rating = 'A avaliação deve ficar entre 0 e 10.'
   }
+
+  return Object.keys(errors).length === 0
+}
+
+function handleSubmit() {
+  if (!validate()) return
 
   emit('submit', {
     ...form,
-    title: form.title.trim(),
     year: Number(form.year),
+    duration: Number(form.duration),
     rating: Number(form.rating),
   })
 }
@@ -66,6 +84,12 @@ function handleSubmit() {
     </div>
 
     <div>
+      <label for="synopsis"> Sinopse </label>
+
+      <input id="synopsis" v-model="form.synopsis" type="text" />
+    </div>
+
+    <div>
       <label for="year"> Ano </label>
 
       <input id="year" v-model="form.year" type="number" />
@@ -87,7 +111,7 @@ function handleSubmit() {
       </select>
     </div>
 
-    <button type="submit">Salvar</button>
+    <button type="submit">{{ submitLabel }}</button>
 
     <button type="button" @click="emit('cancel')">Cancelar</button>
   </form>
