@@ -52,6 +52,7 @@ const emit = defineEmits(['delete'])
                 title="Visualizar"
                 variant="ghost"
               >
+                Ver
               </BaseButton>
               <BaseButton
                 :aria-label="`Editar ${movie.title}`"
@@ -60,6 +61,7 @@ const emit = defineEmits(['delete'])
                 title="Editar"
                 variant="ghost"
               >
+                Editar
               </BaseButton>
               <BaseButton
                 :aria-label="`Excluir ${movie.title}`"
@@ -68,6 +70,7 @@ const emit = defineEmits(['delete'])
                 variant="ghost"
                 @click="emit('delete', movie)"
               >
+                Excluir
               </BaseButton>
             </div>
           </td>
@@ -83,3 +86,106 @@ const emit = defineEmits(['delete'])
     <BaseButton :to="{ name: 'admin-movie-create' }" size="sm"> Cadastrar filme </BaseButton>
   </BaseEmptyState>
 </template>
+
+<style lang="css" scoped>
+.table-wrap {
+  overflow: hidden;
+
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.table-wrap table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.table-wrap th {
+  height: 44px;
+  padding: 0 18px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  border-bottom: 1px solid var(--color-border);
+
+  color: var(--color-text-muted);
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.table-wrap td {
+  padding: 14px 18px;
+
+  border-bottom: 1px solid var(--color-border);
+
+  color: var(--color-text-muted);
+
+  font-size: 13px;
+}
+
+.table-wrap tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table-wrap tbody tr {
+  transition: background 160ms ease;
+}
+
+.table-wrap tbody tr:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.movie-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.movie-cell img {
+  width: 40px;
+  height: 56px;
+
+  flex: 0 0 auto;
+
+  object-fit: cover;
+
+  border-radius: 5px;
+  background: var(--color-bg);
+}
+
+.movie-cell strong,
+.movie-cell small {
+  display: block;
+}
+
+.movie-cell strong {
+  margin-bottom: 4px;
+
+  color: var(--color-text);
+
+  font-size: 13px;
+}
+
+.movie-cell small {
+  color: var(--color-text-muted);
+
+  font-size: 11px;
+}
+
+.rating {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+</style>
