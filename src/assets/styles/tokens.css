@@ -9,6 +9,12 @@
   --color-primary: #e8ff47;
   --color-primary-ink: #111500;
 
+  --color-success: #4ade80;
+  --color-success-subtle: rgba(74, 222, 128, 0.1);
+
+  --color-warning: #fb923c;
+  --color-warning-subtle: rgba(251, 146, 60, 0.1);
+
   --space-2: 0.5rem;
   --space-4: 1rem;
   --space-6: 1.5rem;

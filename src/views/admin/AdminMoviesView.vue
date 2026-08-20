@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useMoviesStore } from '@/stores/movies'
+import AdminMovieTable from '@/components/admin/AdminMovieTable.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 const moviesStore = useMoviesStore()
 

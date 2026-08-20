@@ -1,9 +1,12 @@
 <script setup>
 import AdminMovieTable from '@/components/admin/AdminMovieTable.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import StatCard from '@/components/admin/StatCard.vue'
 import { useMoviesStore } from '@/stores/movies'
 import { computed } from 'vue'
-import StatCard from '@/components/admin/StatCard.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const moviesStore = useMoviesStore()
 
 const recentMovies = computed(() => moviesStore.movies.slice(-4).reverse())
@@ -18,7 +21,7 @@ const recentMovies = computed(() => moviesStore.movies.slice(-4).reverse())
         <p>Acompanhe os dados principais e mantenha o catálogo atualizado.</p>
       </div>
 
-      <BaseButton :to="{ name: 'admin-movie-create' }"> Novo filme </BaseButton>
+      <BaseButton @click="router.push({ name: 'admin-movie-create' })">Novo filme</BaseButton>
     </div>
 
     <section class="stats-grid" aria-label="Indicadores do catálogo">
@@ -53,7 +56,11 @@ const recentMovies = computed(() => moviesStore.movies.slice(-4).reverse())
           <h2>Visão rápida</h2>
           <p>O catálogo possui {{ moviesStore.totalMovies }} filmes cadastrados.</p>
         </div>
-        <BaseButton :to="{ name: 'admin-movies' }" size="sm" variant="ghost">
+        <BaseButton
+          size="sm"
+          variant="ghost"
+          @click="router.push({ name: 'admin-movies' })"
+        >
           Gerenciar filmes
         </BaseButton>
       </div>
@@ -72,29 +79,36 @@ const recentMovies = computed(() => moviesStore.movies.slice(-4).reverse())
 }
 
 .dashboard-panel {
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-8);
   padding: 24px;
+
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 12px;
 }
 
-.dashboard-panel div.dashboard-panel__heading {
-  gap: var(--space-2);
+.dashboard-panel__heading {
   display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+
+  margin-bottom: 20px;
 }
 
-.dashboard-panel h2 {
-  margin: 5px 0 6px;
+.dashboard-panel__heading h2 {
+  margin: 4px 0 6px;
+
   color: var(--color-text);
+
   font-size: 18px;
+  font-weight: 700;
 }
 
-.dashboard-panel p {
+.dashboard-panel__heading p {
   margin: 0;
+
   color: var(--color-text-muted);
+
   font-size: 13px;
 }
 </style>
