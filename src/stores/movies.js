@@ -2,7 +2,9 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 import { initialMovies } from '@/data/movies'
-import { readStorage, writeStorage } from '@/services/storageService'
+import { readStorage, removeStorage, writeStorage } from '@/services/storageService'
+
+const MOVIES_STORAGE_KEY = 'movies'
 
 export const useMoviesStore = defineStore('movies', () => {
   const movies = ref(readStorage('movies', structuredClone(initialMovies)))
@@ -84,6 +86,11 @@ export const useMoviesStore = defineStore('movies', () => {
     return true
   }
 
+  function resetMovies() {
+    movies.value = structuredClone(initialMovies)
+    removeStorage(MOVIES_STORAGE_KEY)
+  }
+
   return {
     movies,
     featuredMovie,
@@ -95,5 +102,6 @@ export const useMoviesStore = defineStore('movies', () => {
     addMovie,
     updateMovie,
     removeMovie,
+    resetMovies,
   }
 })

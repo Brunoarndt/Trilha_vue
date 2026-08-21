@@ -29,7 +29,7 @@ const navigation = [
   <aside class="sidebar" :class="{ 'sidebar--open': open }">
     <div class="sidebar__top">
       <div class="sidebar__brand">
-        <span class="sidebar__brand-mark">C</span>
+        <span class="sidebar__brand-mark"></span>
 
         <div>
           <strong>CineVue</strong>
@@ -159,7 +159,7 @@ const navigation = [
   color: var(--color-text);
 }
 
-.sidebar__nav a.router-link-active {
+.sidebar__nav a.router-link-exact-active {
   background: rgba(255, 255, 255, 0.07);
   color: var(--color-text);
 }

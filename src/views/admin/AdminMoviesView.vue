@@ -25,8 +25,14 @@ const filteredMovies = computed(() => {
   })
 })
 
-function requestDelete(movie) {
-  selectedMovie.value = movie
+function Delete() {
+  if (!selectedMovie.value) return
+  moviesStore.removeMovie(selectedMovie.value.id)
+  selectedMovie.value = null
+}
+
+function Reset() {
+  moviesStore.resetMovies()
 }
 </script>
 
@@ -66,8 +72,8 @@ function requestDelete(movie) {
         {{ filteredMovies.length === 1 ? 'filme encontrado' : 'filmes encontrados' }}
       </span>
     </div>
-
-    <AdminMovieTable :movies="filteredMovies" @delete="requestDelete" />
+    <BaseButton size="sm" variant="ghost" @click="Reset">Resetar filmes</BaseButton>
+    <AdminMovieTable :movies="filteredMovies" @delete="Delete" />
   </div>
 </template>
 

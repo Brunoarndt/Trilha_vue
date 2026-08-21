@@ -56,16 +56,12 @@ const recentMovies = computed(() => moviesStore.movies.slice(-4).reverse())
           <h2>Visão rápida</h2>
           <p>O catálogo possui {{ moviesStore.totalMovies }} filmes cadastrados.</p>
         </div>
-        <BaseButton
-          size="sm"
-          variant="ghost"
-          @click="router.push({ name: 'admin-movies' })"
-        >
+        <BaseButton size="sm" variant="ghost" @click="router.push({ name: 'admin-movies' })">
           Gerenciar filmes
         </BaseButton>
       </div>
 
-      <AdminMovieTable :movies="recentMovies" />
+      <AdminMovieTable :movies="recentMovies" @delete="selectedMovie = $event" />
     </section>
   </div>
 </template>

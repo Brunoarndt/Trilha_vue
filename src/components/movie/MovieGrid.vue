@@ -38,5 +38,6 @@ defineProps({
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: var(--space-6);
+  padding-bottom: var(--space-6);
 }
 </style>

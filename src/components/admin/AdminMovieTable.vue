@@ -1,6 +1,9 @@
 <script setup>
 import BaseButton from '../base/BaseButton.vue'
 import BaseEmptyState from '../base/BaseEmptyState.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 defineProps({
   movies: { type: Array, required: true },
@@ -47,7 +50,7 @@ const emit = defineEmits(['delete'])
             <div class="table-actions">
               <BaseButton
                 :aria-label="`Visualizar ${movie.title}`"
-                :to="{ name: 'movie-details', params: { id: movie.id } }"
+                @click="router.push({ name: 'movie-details', params: { id: movie.id } })"
                 size="sm"
                 title="Visualizar"
                 variant="ghost"
@@ -57,6 +60,7 @@ const emit = defineEmits(['delete'])
               <BaseButton
                 :aria-label="`Editar ${movie.title}`"
                 :to="{ name: 'admin-movie-edit', params: { id: movie.id } }"
+                @click="router.push({ name: 'admin-movie-edit', params: { id: movie.id } })"
                 size="sm"
                 title="Editar"
                 variant="ghost"

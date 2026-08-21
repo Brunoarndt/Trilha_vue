@@ -1,7 +1,9 @@
 <script setup>
 import BaseBadge from '@/components/base/BaseBadge.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 defineProps({
   movie: {
     type: Object,
@@ -29,7 +31,12 @@ defineProps({
         {{ movie.synopsis }}
       </p>
 
-      <BaseButton variant="primary"> Ver detalhes </BaseButton>
+      <BaseButton
+        variant="primary"
+        @click="router.push({ name: 'movie-details', params: { id: movie.id } })"
+      >
+        Ver detalhes
+      </BaseButton>
     </div>
   </article>
 </template>
